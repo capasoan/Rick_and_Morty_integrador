@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {removeFav }from "../redux/actions"
 import Card from './Card';
 
 
-function Favorites({myFavorites}){
+function Favorites({myFavorites, onClose}){
     return ( 
     <div>
       {myFavorites.map(({ id, name, status, species, gender, origin, image }) => {
-        console.log('ID:', id);  // Agrega esta línea para imprimir el ID en la consola
+        console.log('ID:', id);  
         return (
           <Card
             key={id}
@@ -18,6 +19,7 @@ function Favorites({myFavorites}){
             gender={gender || 'Unknown'}
             origin={origin?.name || 'Unknown'}
             image={image || 'URL de imagen por defecto'}
+            onClose={() => onClose(id)}
           />
         );
       })}</div>);
@@ -28,4 +30,10 @@ function mapStateToProps(state){
     };
 }
     
-export default connect(mapStateToProps)(Favorites);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onClose: (id) => dispatch(removeFav(id)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Favorites);

@@ -9,6 +9,8 @@ export default function Nav({onSearch}){
         <Link to= "/Favorites"> <button>Favorites</button></Link>
        
         
+       
+        
 <SearchBar onSearch={onSearch} />
     </div>
 }

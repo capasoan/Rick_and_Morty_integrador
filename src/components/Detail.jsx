@@ -14,6 +14,7 @@ useEffect(() => {
 }, [onSearch, id]);
 
 useEffect(() => {
+
   const foundCharacter = characters.find((char) => char.id.toString() === id);
   setCharacter(foundCharacter);
 }, [characters, id]);
