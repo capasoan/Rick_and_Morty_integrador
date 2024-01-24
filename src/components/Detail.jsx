@@ -1,17 +1,22 @@
 import React from 'react';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Card from './Card';
 
-export default function Detail({character, onSearch, onClose}){
+export default function Detail({ characters, onSearch, onClose}){
 
 
 const { id } = useParams();
-console.log('ID de useParams:', id);
-    useEffect(()=>{
-        onSearch(id, "detail" );
-       
-    }, [onSearch, id]);
+const [character, setCharacter] = useState(null);
+
+useEffect(() => {
+  onSearch(id, "detail");
+}, [onSearch, id]);
+
+useEffect(() => {
+  const foundCharacter = characters.find((char) => char.id.toString() === id);
+  setCharacter(foundCharacter);
+}, [characters, id]);
 
   useEffect(()=>{console.log("Character:" ,character)}, [character]);
 
