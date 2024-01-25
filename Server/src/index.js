@@ -1,4 +1,14 @@
-const http = require('http');
+const express = require('express');
+const server = express();
+const PORT = 3001;
+const morgan= require('morgan')
+
+server.listen(PORT, () => {
+    console.log('Server raised in port: ' + PORT);
+});
+
+//Codigo WEB SERVER
+/*const http = require('http');
 const PORT = 3001;
 const getCharById= require("./controllers/getCharById")
 
@@ -18,4 +28,4 @@ http.createServer((req, res) => {
         
 }).listen(PORT, () => {
     console.log(`Servidor corriendo en: ${PORT}`);
-});
+});*/
