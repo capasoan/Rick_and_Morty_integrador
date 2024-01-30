@@ -8,8 +8,8 @@ import Home from './components/Home';
 import Detail from './components/Detail';
 import MyForm from './components/Form';
 import Favorites from './components/Favorites';
-const EMAIL = "capasoan@hola.com";
-const PASSWORD = "12345c";
+//const EMAIL = "capasoan@hola.com";
+//const PASSWORD = "12345c";
 
 
 
@@ -21,6 +21,23 @@ function App() {
    const [characters, setCharacters] = useState([]);
    const [access, setAccess] = useState(false);
 
+   function login(userData) {
+      const { email, password } = userData;
+      const URL = 'http://localhost:3001/rickandmorty/login/';
+      axios(URL + `?email=${email}&password=${password}`).then(({ data }) => {
+         const { access } = data;
+         setAccess(data);
+         access && navigate('/home');
+      })
+   }
+/*   function login(userData) {
+      const { email, password } = userData;
+      if (password === PASSWORD && email === EMAIL) {
+         setAccess(true);
+         navigate('/home');
+      }
+   }*/
+
    
     useEffect(()=>{console.log(location)}, [location]);
 
@@ -29,7 +46,15 @@ function App() {
       setCharacters(filterId);
    };
 
-    useEffect(() => { !access && navigate('/');}, [access]);
+   /*const navigateToHome = useCallback(() => {
+      !access && navigate('/');
+    }, [access, navigate]);
+  
+    useEffect(() => {
+      navigateToHome();
+    }, [navigateToHome]); */
+  
+useEffect(() => { !access && navigate('/');}, [access, navigate]);
 
     function onSearch(id, string = "all") {
       axios(`http://localhost:3001/rickandmorty/character/${id}`)
@@ -47,13 +72,7 @@ function App() {
             window.alert(error.response.data.error);
          });
    }
-   function login(userData) {
-      const { email, password } = userData;
-      if (password === PASSWORD && email === EMAIL) {
-         setAccess(true);
-         navigate('/home');
-      }
-   }
+ 
    return (
       <div className='App'>
   

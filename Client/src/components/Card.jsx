@@ -56,8 +56,8 @@ function handleFavorite(){
       { isFav ? 
       (<button onClick={handleFavorite}>❤️</button>) 
     : (<button onClick={handleFavorite}>🤍</button>)
-}
-      <button onClick={() => onClose(id)}>X</button>
+      }
+     {onClose && <button onClick={() => onClose(id)}>X</button>}
       <Link to={`/detail/${id}`}>
         <h2>{name}</h2>
       </Link>
@@ -69,7 +69,6 @@ function handleFavorite(){
     </div>
   );
 }
-
 
 export function mapDispatchToProps(dispatch){
   return{

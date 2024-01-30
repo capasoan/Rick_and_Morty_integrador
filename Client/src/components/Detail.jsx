@@ -1,14 +1,15 @@
 import React from 'react';
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams,  useNavigate } from "react-router-dom";
 import Card from './Card';
 import axios from 'axios';
 
-export default function Detail({ characters, onSearch, onClose}){
+export default function Detail({onSearch, onClose}){
 
 
 const { id } = useParams();
 const [characterDetail, setCharacterDetail] = useState(null);
+const navigate = useNavigate();
 
 useEffect(() => {
   onSearch(id, "detail");
@@ -19,7 +20,7 @@ useEffect(() => {
   .then(({data})=>{
   if(data.name){
     setCharacterDetail(data);
-  }else{window.alert("no hat personaje con este ID")
+  }else{window.alert("no hay personaje con este ID")
 
   }
 });//const foundCharacter = characters.find((char) => char.id.toString() === id);
@@ -40,7 +41,10 @@ useEffect(()=>{console.log("characterDetail:" ,characterDetail)}, [characterDeta
           gender={characterDetail.gender || 'Unknown'}
           origin={(characterDetail.origin && characterDetail.origin.name) || 'Unknown'}
           image={characterDetail.image || 'URL de imagen por defecto'}
-          onClose={() => onClose(characterDetail.id)}
+          onClose={() => {
+            onClose();
+            navigate("/home"); 
+          }}
         />
       ) : (
         <div>Cargando...</div>
