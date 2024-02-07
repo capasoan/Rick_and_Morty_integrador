@@ -2,6 +2,35 @@ const axios = require("axios");
 const URL = 'https://rickandmortyapi.com/api/character/'
 
 
+//ASYNC/AWAIT
+const getCharById = async (req, res) => {
+    const { id } = req.params;
+    try {
+    const { data } = await axios.get(`${URL}/${id}`);
+        if(data.name){
+        const character ={ 
+            name, 
+            gender, 
+            species, 
+            origin = origin.name, 
+            image, 
+            status } = data;
+        res.status(201).json(character);
+    } }catch (error) {
+        if (error.message.includes("404")) {
+            res.status(404).json({ error: "character not found" });
+        } else {
+            res.status(500).json({ error: error.message });
+        }
+    }
+}
+
+module.exports = getCharById;
+
+
+//PROMESAS
+/*
+
 const getCharById=(req, res)=>{
 const {id}= req.params
 axios.get(`${URL}${id}`)
@@ -16,14 +45,13 @@ axios.get(`${URL}${id}`)
 }).catch(error=>{
 console.log(error)
 res.status(500).json({message: error.message})
-})
-
-}
+})}
 
 
+module.exports = getCharById;*/
 
 
-/*Codigo WEB SERVER
+/*WEB SERVER
 
 const axios = require("axios");
 
@@ -46,4 +74,3 @@ const getCharById=(res, id)=>{
 }
 
 */
-module.exports = getCharById; 

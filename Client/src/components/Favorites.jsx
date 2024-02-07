@@ -5,7 +5,7 @@ import Card from './Card';
 
 
 
-function Favorites({myFavorites, onClose, removeFavorites}){
+function Favorites({myFavorites, onClose, removeFavorite}){
   console.log('myFavorites:', myFavorites);
   
     return ( 
@@ -14,7 +14,7 @@ function Favorites({myFavorites, onClose, removeFavorites}){
         console.log('ID:', id);  
         return (
           <Card
-          key={`${id}-${index}`}
+          key={id}
             id={id}
             name={name || 'Unknown'}
             status={status || 'Unknown'}
@@ -23,8 +23,8 @@ function Favorites({myFavorites, onClose, removeFavorites}){
             origin={origin?.name || 'Unknown'}
             image={image || 'URL de imagen por defecto'}
             //onClose={() => onClose(id)}
-            onClose={typeof removeFavorites === 'function' ? () => removeFavorites(id) : undefined}
-          
+            onClose={removeFavorite ? removeFavorite(id) : undefined}
+            //onClose={typeof removeFavorite === 'function' && id ? () => removeFavorite(id) : undefined}
           />
         );
       })}</div>);

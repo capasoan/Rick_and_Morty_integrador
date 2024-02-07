@@ -11,9 +11,9 @@ const { id } = useParams();
 const [characterDetail, setCharacterDetail] = useState(null);
 const navigate = useNavigate();
 
-useEffect(() => {
-  onSearch(id, "detail");
-}, [onSearch, id]);
+//useEffect(() => {
+ //onSearch(id, "detail");
+//}, [onSearch, id]);
 
 useEffect(() => {
   axios(`http://localhost:3001/rickandmorty/character/${id}`)

@@ -24,11 +24,13 @@ function Card({
 const[isFav, setIsFav]= useState(false);
 
 useEffect(() => {
-  myFavorites.forEach((fav) => {
-     if (fav.id === id) {
+  if (myFavorites) {
+    myFavorites.forEach((fav) => {
+      if (fav.id === id) {
         setIsFav(true);
-     }
-  });
+      }
+    });
+  }
 }, [myFavorites, id]);
 
 

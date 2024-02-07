@@ -21,6 +21,24 @@ function App() {
    const [characters, setCharacters] = useState([]);
    const [access, setAccess] = useState(false);
 
+
+   const login = async (userData) => {
+      const URL = 'http://localhost:3001/rickandmorty/login/';
+      const { email, password } = userData;
+      try {
+          const { data } = await axios(URL + `?email=${email}&password=${password}`);
+          const { access } = data;
+          setAccess(data);
+          if (access) {
+              navigate('/home');
+          }
+      } catch (error) {
+          console.log("error");
+      }
+  };
+   
+
+   /* PROMESAS 
    function login(userData) {
       const { email, password } = userData;
       const URL = 'http://localhost:3001/rickandmorty/login/';
@@ -30,7 +48,10 @@ function App() {
          access && navigate('/home');
       })
    }
-/*   function login(userData) {
+
+   //WEB SERVER
+/*  
+function login(userData) {
       const { email, password } = userData;
       if (password === PASSWORD && email === EMAIL) {
          setAccess(true);
@@ -56,6 +77,29 @@ function App() {
   
 useEffect(() => { !access && navigate('/');}, [access, navigate]);
 
+
+//ASYNC/AWAIT
+
+const onSearch = async (id) => {
+   try {
+       const { data } = await axios.get(`http://localhost:3001/rickandmorty/character/${id}`);
+      // console.log("Datos recibidos:", data);
+       //console.log("id recibidos:", id);
+       if (!characters.find((char) => char.id === Number(data.id))) {
+           if (data.name) {
+               setCharacters([...characters, data]);
+               setCharacter(data);
+           } else {
+               window.alert(`ya existe el ${id}`);
+           }
+       }
+   } catch (error) {
+       console.log("error");
+   }
+};
+
+    /*PROMESAS
+    
     function onSearch(id, string = "all") {
       axios(`http://localhost:3001/rickandmorty/character/${id}`)
          .then(({ data }) => {
@@ -71,7 +115,7 @@ useEffect(() => { !access && navigate('/');}, [access, navigate]);
          .catch((error) => {
             window.alert(error.response.data.error);
          });
-   }
+   }*/
  
    return (
       <div className='App'>
